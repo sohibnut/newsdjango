@@ -17,7 +17,6 @@ class Tag(BaseModel):
         return self.name
 
 
-
 class News(BaseModel):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
