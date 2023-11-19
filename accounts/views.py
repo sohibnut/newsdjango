@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
 from .forms import RegistrationForm
@@ -10,4 +9,4 @@ class RegistrationView(CreateView):
     model = User
     form_class = RegistrationForm
     
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('home:home')

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+{{title}}
+{% endblock title %}
+
+{% block content %}
+
+
+       
+        <!-- Single News Start-->
+        <div class="single-news">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="sn-img">
+                            <img src={{new.image.url}} />
+                        </div>
+                        <div class="sn-content">
+                            <h1 class="sn-title" href="">{{new.title}}</h1>
+                            <h5 class="sn-date" href=""><i class="far fa-clock"></i>{{new.create_at}}</h5>
+                            <p>
+                                {{new.body}} 
+                            </p>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        {% for rec in recom %}
+                        {% if rec.id != new.id %}
+                        
+                        
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tn-img mb-4">
+                                    <a  href={% url "detail" rec.id %}>
+                                        <img src={{rec.image.url}} width="400px" height="230px"/>
+                                        <div class="tn-content">
+                                            <div class="tn-content-inner">
+                                                <h5>{{rec.title}}</h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Single News End-->
+                
+
+
+{% endblock content %}

@@ -40,8 +40,10 @@
                     </div>
                     <div class="col-lg-6 col-md-4">
                         <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
+                            <form action="{% url 'search' %}">
+                                <input type="text" placeholder="Search" name="search"> 
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4">
@@ -70,20 +72,27 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav m-auto">
-                            <a href={% url 'home' %} class="nav-item nav-link active">Home</a>
+                            <a href={% url 'home' %} class="nav-item nav-link">Home</a>
+                            <a href={% url 'home' %} class="nav-item nav-link">Contact Us</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Sub Item 1</a>
-                                    <a href="#" class="dropdown-item">Sub Item 2</a>
+                                {% for cate in category_list %}                                
+                                    <a href={% url 'category' cate.id %} class="dropdown-item">{{cate}}</a>
+                                {% endfor %}
+                                    
                                 </div>
                             </div>
-                            <a href={% url 'home' %} class="nav-item nav-link">Contact Us</a>
                         </div>
                         {% if request.user.is_authenticated %}
                             <div class="navbar-nav m-auto">
-                                <a href={% url "signin" %} class="nav-item nav-link ">{{request.user.username}}</a>
-                                <a href={% url 'signout' %} class="nav-item nav-link">Sign out</a>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{request.user.username}}</a>
+                                    <div class="dropdown-menu">
+                                        <a href={% url 'password_change' %} class="dropdown-item"  style="color: blue;">Change Password</a>
+                                        <a href={% url 'signout' %} class="dropdown-item" style="color: red;">Sign out</a>
+                                    </div>
+                                </div>
                                 <a href={% url 'add_new' %} class="nav-item nav-link">Add News</a>
                             </div>
                         {% else %}
@@ -94,6 +103,7 @@
                         {% endif %}
                     </div>
                 </nav>
+                
             </div>
         </div>
         <!-- Header End -->

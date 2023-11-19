@@ -23,7 +23,10 @@ class News(BaseModel):
     image = models.ImageField(upload_to='news/')
     view_co = models.BigIntegerField(default=0)
     body = models.TextField()
-    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='news')
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='news')
     tag_id = models.ManyToManyField(Tag)
+
+    def __str__(self) -> str:
+        return self.title
 
