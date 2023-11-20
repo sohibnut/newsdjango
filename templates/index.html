@@ -14,61 +14,30 @@ News
                 <div class="row">
                     <div class="col-md-6 tn-left">
                         <div class="tn-img">
-                            <img src="img/top-news-1.jpg" />
+                            <img src={{top.image.url}}  height="530px"/>
                             <div class="tn-content">
                                 <div class="tn-content-inner">
-                                    <a class="tn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                    <a class="tn-title" href="">Lorem ipsum dolor sit amet adipiscing elit</a>
+                                    <a class="tn-date" href="{% url 'detail' top.id %}"><i class="far fa-clock"></i>{{top.create_at}}</a>
+                                    <a class="tn-title" href="{% url 'detail' top.id %}">{{top.title}}</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 tn-right">
                         <div class="row">
+                            {% for new in top_news %}
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="img/top-news-2.jpg" />
+                                    <img src={{new.image.url}} width="435px" height="250px"/>
                                     <div class="tn-content">
                                         <div class="tn-content-inner">
-                                            <a class="tn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                            <a class="tn-title" href="">Integer faucibus pharetra odio</a>
+                                            <a class="tn-date" href="{% url 'detail' new.id %}"><i class="far fa-clock"></i>{{new.create_at}}</a>
+                                            <a class="tn-title" href="{% url 'detail' new.id %}">{{new.title}}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="tn-img">
-                                    <img src="img/top-news-3.jpg" />
-                                    <div class="tn-content">
-                                        <div class="tn-content-inner">
-                                            <a class="tn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                            <a class="tn-title" href="">Nulla vitae pharetra ligula</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="tn-img">
-                                    <img src="img/top-news-4.jpg" />
-                                    <div class="tn-content">
-                                        <div class="tn-content-inner">
-                                            <a class="tn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                            <a class="tn-title" href="">Ut ac euismod tellus a blandit</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="tn-img">
-                                    <img src="img/top-news-5.jpg" />
-                                    <div class="tn-content">
-                                        <div class="tn-content-inner">
-                                            <a class="tn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                            <a class="tn-title" href="">Cras ac egestas sem nec euismod</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -130,62 +99,31 @@ News
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mn-img">
-                                            <img src="img/latest-news.jpg" />
+                                            <img src={{last.image.url}} width="500px"/>
                                         </div>
                                         <div class="mn-content">
-                                            <a class="mn-title" href="">Cras commodo sem ut porta laoreet</a>
-                                            <a class="mn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
+                                            <a class="mn-title" href={% url 'detail' last.id %}>{{last.title}}</a>
+                                            <a class="mn-date" href={% url 'detail' last.id %}><i class="far fa-clock"></i>{{last.update_at}}</a>
+                                            <a class="mn-date" href={% url 'detail' last.id %}><i class="far fa-eye"></i>{{last.view_co}}</a>
                                             <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed porta dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra inceptos...
+                                                {{last.body}}
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
+                                    {% for new in last_news %}
                                         <div class="mn-list">
                                             <div class="mn-img">
-                                                <img src="img/latest-news.jpg" />
+                                                <img src={{new.image.url}} width="100px" height="60px"/>
                                             </div>
                                             <div class="mn-content">
-                                                <a class="mn-title" href="">Pellentesque sit amet rutrum lacus</a>
-                                                <a class="mn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
+                                                <a class="mn-title" href={% url 'detail' new.id %}>{{new.title}}</a>
+                                                <a class="mn-date" href=""><i class="far fa-clock"></i>{{new.update_at}}</a>
+                                                <a class="mn-date" href=""><i class="far fa-eye"></i>{{new.view_co}}</a>
                                             </div>
                                         </div>
-                                        <div class="mn-list">
-                                            <div class="mn-img">
-                                                <img src="img/latest-news.jpg" />
-                                            </div>
-                                            <div class="mn-content">
-                                                <a class="mn-title" href="">Proin id pretium orci, quis rhoncus eros</a>
-                                                <a class="mn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                            </div>
-                                        </div>
-                                        <div class="mn-list">
-                                            <div class="mn-img">
-                                                <img src="img/latest-news.jpg" />
-                                            </div>
-                                            <div class="mn-content">
-                                                <a class="mn-title" href="">Curabitur viverra scelerisque tempor</a>
-                                                <a class="mn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                            </div>
-                                        </div>
-                                        <div class="mn-list">
-                                            <div class="mn-img">
-                                                <img src="img/latest-news.jpg" />
-                                            </div>
-                                            <div class="mn-content">
-                                                <a class="mn-title" href="">Integer nec lorem facilisis interdum lorem non</a>
-                                                <a class="mn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                            </div>
-                                        </div>
-                                        <div class="mn-list">
-                                            <div class="mn-img">
-                                                <img src="img/latest-news.jpg" />
-                                            </div>
-                                            <div class="mn-content">
-                                                <a class="mn-title" href="">Interdum et malesuada fames</a>
-                                                <a class="mn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
-                                            </div>
-                                        </div>
+                                    {% endfor %}
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +152,7 @@ News
                                 <h2><i class="fas fa-align-justify"></i>Tags</h2>
                                 <div class="tags">
                                 {% for tag in tag_list %}
-                                    <a href="">{{tag}}</a>
+                                    <a href={% url "tag" tag.id %}>{{tag}}</a>
                                 {% endfor %}
                                 </div>
                             </div>

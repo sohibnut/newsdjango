@@ -17,9 +17,23 @@ class HomePage(ListView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+
         category_list = Category.objects.all()
+        top_news = News.objects.order_by("-view_co")
+        last_news = News.objects.order_by("-update_at")
         tag_list = Tag.objects.all()
+
+        last = last_news[0]
+        top = top_news[0]
+
+        if len(last_news) > 8:
+            last_news = last_news[1:8]
+
+        if len(top_news) > 5:
+            top_news = top_news[1:5]
+        
         newscate = []
+
         for cate in category_list:
             l = []
             l.append(cate)
@@ -32,28 +46,30 @@ class HomePage(ListView):
                 l.append(y)
             newscate.append(l)        
         
-
+        context['top_news'] = top_news
+        context['top'] = top
         context['newscate'] = newscate
         context['category_list'] = category_list
         context['tag_list'] = tag_list
+        context['last'] = last
+        context['last_news'] = last_news
         return context
 
 class SearchView(ListView):
-    template_name = 'searchview.html'
+    template_name = 'listview.html'
     model = News
 
-    def get_queryset(self) -> QuerySet[Any]:
-        query = self.request.GET.get('search')
-        print(query)
-        object_list = News.objects.filter(
-            Q(title__icontains=query) | Q(body__icontains=query)
-        )
-        print(object_list)
-        return object_list
+
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['query'] = self.request.GET.get("search")
+        query = self.request.GET.get("search")
+        context['query'] = query
+        object_list = News.objects.filter(
+            Q(title__icontains=query) | Q(body__icontains=query)
+        )
+        context['title'] = f"Search: '{query}'"
+        context['news'] = object_list
         return context
 
 class CategoryView(ListView):
@@ -65,6 +81,17 @@ class CategoryView(ListView):
         category = Category.objects.get(id=pk)
         context['title'] = category.name
         context['news'] = category.news.all()
+        return render(request, self.template_name, context)
+        
+class TagsView(ListView):
+    template_name = 'listview.html'
+    model = News
+
+    def get(self, request, pk) -> HttpResponse:
+        context = {}
+        tag = Tag.objects.get(id=pk)
+        context['title'] = tag.name
+        context['news'] = tag.news.all()
         return render(request, self.template_name, context)
         
 
@@ -87,13 +114,19 @@ def addnewsview(request):
     context['form'] = AddNewsForm()
     return render(request, 'add_new.html', context)
 
+
+
 class DetailView(View):
     template_name = 'detail.html'
     def get(self, request, pk):
         context = {}
         new = News.objects.get(id=pk)
         recom = News.objects.filter(category_id = new.category_id)
+        if len(recom)>5:
+            recom = recom[:5]
 
+        new.view_co += 1
+        new.save()
         context['recom'] = recom
         context['title'] = new.title
         context['new'] = new
