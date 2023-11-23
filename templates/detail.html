@@ -23,7 +23,12 @@
                             <p>
                                 {{new.body}} 
                             </p>
-                            
+                            <h5 class="sn-date" href=""><i class="fas fa-pen-nib"></i>  {{new.user_id.first_name}}  {{new.user_id.last_name}}</h5>
+                            <br><br>
+                            {% if request.user == new.user_id or request.user.is_superuser%}
+                            <a href={% url "update" new.id %}><button>Update</button></a>
+                            <a href={% url "delete" new.id %}><button>Delete</button></a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-4">

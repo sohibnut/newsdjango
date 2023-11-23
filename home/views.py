@@ -1,14 +1,18 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.views import View
 from .models import News, Category, Tag
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .forms import AddNewsForm
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 # Create your views here.
 
 class HomePage(ListView):
@@ -68,7 +72,7 @@ class SearchView(ListView):
         object_list = News.objects.filter(
             Q(title__icontains=query) | Q(body__icontains=query)
         )
-        context['title'] = f"Search: '{query}'"
+        context['title'] = f"Search: '{query}' results:"
         context['news'] = object_list
         return context
 
@@ -79,8 +83,19 @@ class CategoryView(ListView):
     def get(self, request, pk) -> HttpResponse:
         context = {}
         category = Category.objects.get(id=pk)
-        context['title'] = category.name
+        context['title'] = f"Category: {category.name}"
         context['news'] = category.news.all()
+        return render(request, self.template_name, context)
+        
+class MyNewsView(ListView):
+    template_name = 'listview.html'
+    model = News
+
+    def get(self, request) -> HttpResponse:
+        context = {}
+        context['title'] = f"My News:"
+        context['news'] = News.objects.filter(user_id=request.user)
+        print(request.user.id)
         return render(request, self.template_name, context)
         
 class TagsView(ListView):
@@ -90,30 +105,57 @@ class TagsView(ListView):
     def get(self, request, pk) -> HttpResponse:
         context = {}
         tag = Tag.objects.get(id=pk)
-        context['title'] = tag.name
+        context['title'] = f"Tag: {tag.name}"
         context['news'] = tag.news.all()
+        return render(request, self.template_name, context)
+        
+class AuthorView(ListView):
+    template_name = 'listview.html'
+    model = News
+
+    def get(self, request, slug) -> HttpResponse:
+        context = {}
+        user = User.objects.get(username=slug)
+        context['title'] = f"Author: {user.username}"
+        context['news'] = user.news.all()
         return render(request, self.template_name, context)
         
 
 
-class Contact():
-    pass
 
-@login_required
-def addnewsview(request):
-    if request.POST:
-        form = AddNewsForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.instance.user_id = request.user
-            form.save()
-            return redirect('home')
-        else:
-            print(form.errors)
 
-    context = {}
-    context['form'] = AddNewsForm()
-    return render(request, 'add_new.html', context)
+class AddNewsView(LoginRequiredMixin, CreateView):
+    model = News
+    form_class = AddNewsForm
+    template_name = 'add_new.html'
+    success_url = reverse_lazy('home')
 
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user
+        return super().form_valid(form)
+    
+
+class UpdateNewsView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = News
+    form_class = AddNewsForm
+    template_name = 'add_new.html'
+    success_url = reverse_lazy('home')
+
+    def test_func(self):
+        new = self.get_object()
+        if self.request.user == new.user_id or self.request.user.is_superuser:
+            return True
+        return False
+
+class DeleteNewsView(DeleteView):
+    model = News
+    success_url = reverse_lazy('home')
+
+    def test_func(self):
+        new = self.get_object()
+        if self.request.user == new.user_id or self.request.user.is_superuser:
+            return True
+        return False
 
 
 class DetailView(View):
@@ -131,5 +173,8 @@ class DetailView(View):
         context['title'] = new.title
         context['new'] = new
         return render(request, self.template_name, context)
+    
+
+
 
     

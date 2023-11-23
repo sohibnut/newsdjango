@@ -4,10 +4,12 @@
 {% endblock title %}  
 {% block content %}
 
+<div class="m-4">
 <form method="post">
     {% csrf_token %} 
     {{ form.as_p }}
     <button type="submit">Submit</button>
 </form>
+</div>
 
 {% endblock content %}

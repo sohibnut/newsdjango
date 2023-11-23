@@ -88,9 +88,11 @@
                                     <div class="dropdown-menu">
                                         <a href={% url 'password_change' %} class="dropdown-item"  style="color: blue;">Change Password</a>
                                         <a href={% url 'signout' %} class="dropdown-item" style="color: red;">Sign out</a>
+                                        <a href={% url 'profile' %} class="dropdown-item" style="color: green;">Profile</a>
                                     </div>
                                 </div>
-                                <a href={% url 'add_new' %} class="nav-item nav-link">Add News</a>
+                                <a href={% url 'add_news' %} class="nav-item nav-link">Add News</a>
+                                <a href={% url 'my_news' %} class="nav-item nav-link">My News</a>
                             </div>
                         {% else %}
                             <div class="navbar-nav m-auto">
@@ -116,13 +118,11 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-widget">
-                            <h3 class="title">Useful Links</h3>
+                            <h3 class="title">Tags</h3>
                             <ul>
-                                <li><a href="#">Pellentesque</a></li>
-                                <li><a href="#">Aliquam</a></li>
-                                <li><a href="#">Fusce placerat</a></li>
-                                <li><a href="#">Nulla hendrerit</a></li>
-                                <li><a href="#">Maecenas</a></li>
+                            {% for tag in tags %}
+                                <li><a href={% url "tag" tag.id %}>{{tag}}</a></li>
+                            {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                             <h3 class="title">Authors</h3>
                             <ul>
                                 {% for auth in authors %}
-                                <li><a href="#">{{auth.last_name}}  {{auth.first_name}}  {{auth}}</a></li>
+                                <li><a href={% url "author" auth.username %}>{{auth.last_name}}  {{auth.first_name}}  {{auth}}</a></li>
                                 
                                 {% endfor %}
                                 
@@ -144,9 +144,9 @@
                         <div class="footer-widget">
                             <h3 class="title">Get in Touch</h3>
                             <div class="contact-info">
-                                <p><i class="fa fa-map-marker"></i>123 Terry Lane, New York, USA</p>
-                                <p><i class="fa fa-envelope"></i>mr.nut.sohib@gmail.com</p>
-                                <p><i class="fa fa-phone"></i>+998934569965</p>
+                                <p><i class="fa fa-map-marker"></i>109 Amir Temur, Yunusobod district, Tashkent, UZB</p>
+                                <p><i class="fa fa-envelope"></i><a href="mailto:mr.nut.sohib@gmail.com">mr.nut.sohib@gmail.com</a></p>
+                                <p><i class="fa fa-phone"></i><a href="tel:+998934569965">+998934569965</a></p>
                                 <div class="social">
                                     {% for soc in social_list %}
                                         <a href={{soc.url}}><i class="fab fa-{{soc.name}}"></i></a>

@@ -1,0 +1,21 @@
+{% extends "../base.html" %}
+{% block title %}
+    Profile: {{request.user}}
+{% endblock title %}  
+{% block content %}
+<div class="m-4">
+
+    <h3 class="m-3">Username:  ->  {{user.username}}</h3>
+    <br>
+    <h3 class="m-3">Email:  ->  {{user.email}}</h3>
+    <br>
+    <h3 class="m-3">First Name:  ->  {{user.first_name}}</h3>
+    <br>
+    <h3 class="m-3">Last Name:  ->  {{user.last_name}}</h3>
+    <br>
+    <a href="{% url 'update_profile' user.id %}"><button type="button">Update</button></a>
+    <br>
+    <a href="{% url 'password_change' %}"><button type="button">Change Password</button></a>
+</div>
+
+{% endblock content %}

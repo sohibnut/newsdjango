@@ -8,13 +8,15 @@ from django.contrib.auth.views import (LoginView,
                                        PasswordResetCompleteView,
                                        PasswordResetConfirmView)
 
-from .views import RegistrationView
+from .views import RegistrationView, ProfileView, UpdateProfileView
 
 urlpatterns = [
     path('signup/', RegistrationView.as_view(), name='signup'),
     path('signin/', LoginView.as_view(), name='signin'),
     path('signout/', LogoutView.as_view(), name='signout'),
-    
+    path('profile/', ProfileView.as_view(), name='profile'),
+    path('update-profile/<int:pk>', UpdateProfileView.as_view(), name='update_profile'),
+
     path('password-change/', PasswordChangeView.as_view(), name='password_change'),
     path('password-change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
 
