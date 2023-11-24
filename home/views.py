@@ -13,6 +13,8 @@ from .forms import AddNewsForm
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from hitcount.views import HitCountDetailView
+from django.utils.text import slugify
+from hitcount.models import HitCount
 
 # Create your views here.
 
@@ -24,16 +26,23 @@ class HomePage(ListView):
         context = super().get_context_data(**kwargs)
 
         category_list = Category.objects.all()
-        top_news = News.objects.order_by("-view_co")
+        hit_top_news = HitCount.objects.order_by('-hits')
+        print(hit_top_news)
+
+        top_news = []
+        for x in hit_top_news:
+            top_news.append(x.content_object)
+        #top_news = News.objects.order_by("-view_co")
         last_news = News.objects.order_by("-update_at")
         tag_list = Tag.objects.all()
 
         last = last_news[0]
         top = top_news[0]
-
+        last_news = last_news[1:]
         if len(last_news) > 8:
             last_news = last_news[1:8]
 
+        top_news = top_news[1:]
         if len(top_news) > 5:
             top_news = top_news[1:5]
         
@@ -81,9 +90,9 @@ class CategoryView(ListView):
     template_name = 'listview.html'
     model = News
 
-    def get(self, request, pk) -> HttpResponse:
+    def get(self, request, name) -> HttpResponse:
         context = {}
-        category = Category.objects.get(id=pk)
+        category = Category.objects.get(name_en = name)
         context['title'] = f"{category.name}"
         context['news'] = category.news.all()
         return render(request, self.template_name, context)
@@ -120,8 +129,6 @@ class AuthorView(ListView):
         context['title'] = f"{user.username}"
         context['news'] = user.news.all()
         return render(request, self.template_name, context)
-        
-
 
 
 
@@ -133,6 +140,7 @@ class AddNewsView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user_id = self.request.user
+        form.instance.slug = slugify(form.cleaned_data['title'])
         return super().form_valid(form)
     
 
@@ -164,7 +172,7 @@ class DetailView(HitCountDetailView):
     template_name = 'detail.html'
     count_hit = True
 
-    
+
     
 
 

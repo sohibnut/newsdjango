@@ -17,8 +17,8 @@ News
                             <img src={{top.image.url}}  height="530px"/>
                             <div class="tn-content">
                                 <div class="tn-content-inner">
-                                    <a class="tn-date" href="{% url 'detail' top.id %}"><i class="far fa-clock"></i>{{top.create_at}}</a>
-                                    <a class="tn-title" href="{% url 'detail' top.id %}">{{top.title}}</a>
+                                    <a class="tn-date" href="{% url 'detail' top.slug %}"><i class="far fa-clock"></i>{{top.create_at}}</a>
+                                    <a class="tn-title" href="{% url 'detail' top.slug %}">{{top.title}}</a>
                                 </div>
                             </div>
                         </div>
@@ -31,8 +31,8 @@ News
                                     <img src={{new.image.url}} width="435px" height="250px"/>
                                     <div class="tn-content">
                                         <div class="tn-content-inner">
-                                            <a class="tn-date" href="{% url 'detail' new.id %}"><i class="far fa-clock"></i>{{new.create_at}}</a>
-                                            <a class="tn-title" href="{% url 'detail' new.id %}">{{new.title}}</a>
+                                            <a class="tn-date" href="{% url 'detail' new.slug %}"><i class="far fa-clock"></i>{{new.create_at}}</a>
+                                            <a class="tn-title" href="{% url 'detail' new.slug %}">{{new.title}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@ News
                             {% if forloop.counter == 1 %}
                                 <h2>
                                     <i class="fas fa-align-justify"></i>
-                                    <a href={% url 'category' category.id %}>{{category.name}}</a>
+                                    <a href={% url 'category' category.name_en %}>{{category.name}}</a>
                                     
                                 </h2>  
                                 <div class="row cn-slider">                         
@@ -67,7 +67,7 @@ News
                                         <div class="cn-content">
                                             <div class="cn-content-inner">
                                                 <a class="cn-date" href=""><i class="far fa-clock"></i>{{category.create_at}}</a>
-                                                <a class="cn-title" href="">{{category.title}}</a>
+                                                <a class="cn-title" href={% url "detail" category.slug %}>{{category.title}}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -102,9 +102,9 @@ News
                                             <img src={{last.image.url}} width="500px"/>
                                         </div>
                                         <div class="mn-content">
-                                            <a class="mn-title" href={% url 'detail' last.id %}>{{last.title}}</a>
-                                            <a class="mn-date" href={% url 'detail' last.id %}><i class="far fa-clock"></i>{{last.update_at}}</a>
-                                            <a class="mn-date" href={% url 'detail' last.id %}><i class="far fa-eye"></i>{{last.view_co}}</a>
+                                            <a class="mn-title" href={% url 'detail' last.slug %}>{{last.title}}</a>
+                                            <a class="mn-date" href={% url 'detail' last.slug %}><i class="far fa-clock"></i>{{last.update_at}}</a>
+                                            <a class="mn-date" href={% url 'detail' last.slug %}><i class="far fa-eye"></i>{{last.view_co}}</a>
                                             <p>
                                                 {{last.body}}
                                             </p>
@@ -117,7 +117,7 @@ News
                                                 <img src={{new.image.url}} width="100px" height="60px"/>
                                             </div>
                                             <div class="mn-content">
-                                                <a class="mn-title" href={% url 'detail' new.id %}>{{new.title}}</a>
+                                                <a class="mn-title" href={% url 'detail' new.slug %}>{{new.title}}</a>
                                                 <a class="mn-date" href=""><i class="far fa-clock"></i>{{new.update_at}}</a>
                                                 <a class="mn-date" href=""><i class="far fa-eye"></i>{{new.view_co}}</a>
                                             </div>
@@ -141,7 +141,7 @@ News
                                                 <span class="fa-li">
                                                     <i class="far fa-arrow-alt-circle-right"></i>
                                                 </span>
-                                                <a href={% url 'category' cate.id %}>{{cate}}</a>
+                                                <a href={% url 'category' cate.name_en %}>{{cate}}</a>
                                             </li>
                                         {% endfor %}
                                     </ul>

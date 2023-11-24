@@ -2,7 +2,7 @@
 {% load static %}
 {% load hitcount_tags %}
 {% block title %}
-{{title}}
+Detail Page
 {% endblock title %}
 
 {% block content %}
@@ -20,11 +20,17 @@
                         <div class="sn-content">
                             <h1 class="sn-title" href="">{{object.title}}</h1>
                             <h5 class="sn-date" href=""><i class="far fa-clock"></i>{{object.create_at}}</h5>
+                            <h5 class="sn-date" href=""><i class="fa fa-bookmark"></i> {{object.category_id}}</h5>
                             <h5 class="sn-date" href=""><i class="far fa-eye"></i>{% get_hit_count for object %}</h5>
                             <p>
                                 {{object.body}} 
                             </p>
                             <h5 class="sn-date" href=""><i class="fas fa-pen-nib"></i>  {{object.user_id.first_name}}  {{object.user_id.last_name}}</h5>
+                            <br><br>
+                            {% for tag in object.tag_id.all %}
+                                <a href={% url "tag" tag.id %}>{{tag}}</a>    
+                            /
+                            {% endfor %}
                             <br><br>
                             {% if request.user == object.user_id or request.user.is_superuser%}
                             <a href={% url "update" object.id %}><button>Update</button></a>

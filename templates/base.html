@@ -80,7 +80,7 @@
                                 </a>
                                 <div class="dropdown-menu">
                                 {% for cate in category_list %}                                
-                                    <a href={% url 'category' cate.id %} class="dropdown-item">{{cate}}</a>
+                                    <a href={% url 'category' cate.name_en %} class="dropdown-item">{{cate}}</a>
                                 {% endfor %}
                                     
                                 </div>
