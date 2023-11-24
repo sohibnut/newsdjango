@@ -21,7 +21,6 @@ class News(BaseModel):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     image = models.ImageField(upload_to='news/')
-    view_co = models.BigIntegerField(default=0)
     body = models.TextField()
     user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='news')
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='news')

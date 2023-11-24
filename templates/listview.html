@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load hitcount_tags %}
 {% block title %}
 {{title}}
 {% endblock title %}
@@ -27,7 +28,7 @@
                                         <div class="tn-content-inner">
                                             <a class="tn-date" href={% url "detail" new.slug %}><i class="far fa-clock"></i>{{new.create_at}}</a>
                                             <a class="tn-date" href={% url "detail" new.slug %}><i class="far fa-eye"></i>{{new.view_co}}</a>
-                                            <a class="tn-title" href={% url "detail" new.slug %}>{{new.title}}</a>
+                                            <a class="tn-title" href={% url "detail" new.slug %}>{% get_hit_count for new %}</a>
                                         </div>
                                     </div>
                                 </div>

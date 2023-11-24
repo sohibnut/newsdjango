@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load hitcount_tags %}
 {% block title %}
 News
 {% endblock title %}
@@ -104,7 +105,7 @@ News
                                         <div class="mn-content">
                                             <a class="mn-title" href={% url 'detail' last.slug %}>{{last.title}}</a>
                                             <a class="mn-date" href={% url 'detail' last.slug %}><i class="far fa-clock"></i>{{last.update_at}}</a>
-                                            <a class="mn-date" href={% url 'detail' last.slug %}><i class="far fa-eye"></i>{{last.view_co}}</a>
+                                            <a class="mn-date" href={% url 'detail' last.slug %}><i class="far fa-eye"></i>{% get_hit_count for last %}</a>
                                             <p>
                                                 {{last.body}}
                                             </p>
@@ -119,7 +120,7 @@ News
                                             <div class="mn-content">
                                                 <a class="mn-title" href={% url 'detail' new.slug %}>{{new.title}}</a>
                                                 <a class="mn-date" href=""><i class="far fa-clock"></i>{{new.update_at}}</a>
-                                                <a class="mn-date" href=""><i class="far fa-eye"></i>{{new.view_co}}</a>
+                                                <a class="mn-date" href=""><i class="far fa-eye"></i>{% get_hit_count for new %}</a>
                                             </div>
                                         </div>
                                     {% endfor %}
