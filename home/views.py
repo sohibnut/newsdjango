@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import AddNewsForm
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from hitcount.views import HitCountDetailView
 
 # Create your views here.
 
@@ -83,7 +84,7 @@ class CategoryView(ListView):
     def get(self, request, pk) -> HttpResponse:
         context = {}
         category = Category.objects.get(id=pk)
-        context['title'] = f"Category: {category.name}"
+        context['title'] = f"{category.name}"
         context['news'] = category.news.all()
         return render(request, self.template_name, context)
         
@@ -93,7 +94,7 @@ class MyNewsView(ListView):
 
     def get(self, request) -> HttpResponse:
         context = {}
-        context['title'] = f"My News:"
+        context['title'] = f"{request.user}"
         context['news'] = News.objects.filter(user_id=request.user)
         print(request.user.id)
         return render(request, self.template_name, context)
@@ -105,7 +106,7 @@ class TagsView(ListView):
     def get(self, request, pk) -> HttpResponse:
         context = {}
         tag = Tag.objects.get(id=pk)
-        context['title'] = f"Tag: {tag.name}"
+        context['title'] = f"{tag.name}"
         context['news'] = tag.news.all()
         return render(request, self.template_name, context)
         
@@ -116,7 +117,7 @@ class AuthorView(ListView):
     def get(self, request, slug) -> HttpResponse:
         context = {}
         user = User.objects.get(username=slug)
-        context['title'] = f"Author: {user.username}"
+        context['title'] = f"{user.username}"
         context['news'] = user.news.all()
         return render(request, self.template_name, context)
         
@@ -158,21 +159,12 @@ class DeleteNewsView(DeleteView):
         return False
 
 
-class DetailView(View):
+class DetailView(HitCountDetailView):
+    model = News
     template_name = 'detail.html'
-    def get(self, request, pk):
-        context = {}
-        new = News.objects.get(id=pk)
-        recom = News.objects.filter(category_id = new.category_id)
-        if len(recom)>5:
-            recom = recom[:5]
+    count_hit = True
 
-        new.view_co += 1
-        new.save()
-        context['recom'] = recom
-        context['title'] = new.title
-        context['new'] = new
-        return render(request, self.template_name, context)
+    
     
 
 

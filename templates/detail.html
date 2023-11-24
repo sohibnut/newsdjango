@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load hitcount_tags %}
 {% block title %}
 {{title}}
 {% endblock title %}
@@ -14,27 +15,27 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="sn-img">
-                            <img src={{new.image.url}} />
+                            <img src={{object.image.url}} />
                         </div>
                         <div class="sn-content">
-                            <h1 class="sn-title" href="">{{new.title}}</h1>
-                            <h5 class="sn-date" href=""><i class="far fa-clock"></i>{{new.create_at}}</h5>
-                            <h5 class="sn-date" href=""><i class="far fa-eye"></i>{{new.view_co}}</h5>
+                            <h1 class="sn-title" href="">{{object.title}}</h1>
+                            <h5 class="sn-date" href=""><i class="far fa-clock"></i>{{object.create_at}}</h5>
+                            <h5 class="sn-date" href=""><i class="far fa-eye"></i>{% get_hit_count for object %}</h5>
                             <p>
-                                {{new.body}} 
+                                {{object.body}} 
                             </p>
-                            <h5 class="sn-date" href=""><i class="fas fa-pen-nib"></i>  {{new.user_id.first_name}}  {{new.user_id.last_name}}</h5>
+                            <h5 class="sn-date" href=""><i class="fas fa-pen-nib"></i>  {{object.user_id.first_name}}  {{object.user_id.last_name}}</h5>
                             <br><br>
-                            {% if request.user == new.user_id or request.user.is_superuser%}
-                            <a href={% url "update" new.id %}><button>Update</button></a>
-                            <a href={% url "delete" new.id %}><button>Delete</button></a>
+                            {% if request.user == object.user_id or request.user.is_superuser%}
+                            <a href={% url "update" object.id %}><button>Update</button></a>
+                            <a href={% url "delete" object.id %}><button>Delete</button></a>
                             {% endif %}
                         </div>
                     </div>
                     <div class="col-md-4">
 
                         {% for rec in recom %}
-                        {% if rec.id != new.id %}
+                        {% if rec.id != object.id %}
                         
                         
                         <div class="row">

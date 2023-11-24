@@ -1,14 +1,8 @@
 from django.urls import path
 from django.shortcuts import redirect
-from .views import (HomePage, 
-                    CategoryView, 
-                    DetailView, 
-                    SearchView, 
-                    TagsView, 
-                    AddNewsView,
-                    MyNewsView,
-                    UpdateNewsView,
-                    DeleteNewsView,
+from .views import (HomePage, CategoryView, DetailView, 
+                    SearchView, TagsView, AddNewsView,
+                    MyNewsView, UpdateNewsView, DeleteNewsView,
                     AuthorView)
 
 
@@ -23,5 +17,5 @@ urlpatterns = [
     path('news/update/<int:pk>', UpdateNewsView.as_view(), name='update'),
     path('news/delete/<int:pk>', DeleteNewsView.as_view(), name='delete'),
     path('search/', SearchView.as_view(), name='search'),
-    path("news/author/<str:slug>", AuthorView.as_view(), name="author")
+    path("news/author/<str:slug>", AuthorView.as_view(), name="author"),
 ]
