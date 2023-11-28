@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% load hitcount_tags %}
 {% block title %}
-Detail Page
+    {{object.title}}
 {% endblock title %}
 
 {% block content %}
@@ -33,8 +34,8 @@ Detail Page
                             {% endfor %}
                             <br><br>
                             {% if request.user == object.user_id or request.user.is_superuser%}
-                            <a href={% url "update" object.id %}><button>Update</button></a>
-                            <a href={% url "delete" object.id %}><button>Delete</button></a>
+                            <a href={% url "update" object.id %}><button>{% blocktranslate %}Update{% endblocktranslate %} </button></a>
+                            <a href={% url "delete" object.id %}><button>{% blocktranslate %}Delete{% endblocktranslate %}</button></a>
                             {% endif %}
                         </div>
                     </div>

@@ -2,13 +2,12 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.generic import ListView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.views import View
 from .models import News, Category, Tag
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
 from .forms import AddNewsForm
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -27,7 +26,6 @@ class HomePage(ListView):
 
         category_list = Category.objects.all()
         hit_top_news = HitCount.objects.order_by('-hits')
-        print(hit_top_news)
 
         top_news = []
         for x in hit_top_news:
@@ -105,7 +103,6 @@ class MyNewsView(ListView):
         context = {}
         context['title'] = f"{request.user}"
         context['news'] = News.objects.filter(user_id=request.user)
-        print(request.user.id)
         return render(request, self.template_name, context)
         
 class TagsView(ListView):
@@ -130,8 +127,6 @@ class AuthorView(ListView):
         context['news'] = user.news.all()
         return render(request, self.template_name, context)
 
-
-
 class AddNewsView(LoginRequiredMixin, CreateView):
     model = News
     form_class = AddNewsForm
@@ -143,7 +138,6 @@ class AddNewsView(LoginRequiredMixin, CreateView):
         form.instance.slug = slugify(form.cleaned_data['title'])
         return super().form_valid(form)
     
-
 class UpdateNewsView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = News
     form_class = AddNewsForm
@@ -165,7 +159,6 @@ class DeleteNewsView(DeleteView):
         if self.request.user == new.user_id or self.request.user.is_superuser:
             return True
         return False
-
 
 class DetailView(HitCountDetailView):
     model = News

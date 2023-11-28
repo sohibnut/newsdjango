@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block title %}
-     New
+    {% blocktranslate %}Add New{% endblocktranslate %} 
 {% endblock title %}  
 {% block content %}
 
@@ -8,7 +9,7 @@
 <form method="post" enctype='multipart/form-data'>
     {% csrf_token %} 
     {{ form.as_p }}
-    <button type="submit">Submit</button>
+    <button type="submit">{% blocktranslate %}Submit{% endblocktranslate %}</button>
 </form>
 </div>
 

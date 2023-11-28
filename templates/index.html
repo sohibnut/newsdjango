@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% load hitcount_tags %}
 {% block title %}
-News
+{% blocktranslate %}News{% endblocktranslate %}
 {% endblock title %}
 
 {% block content %}
@@ -96,7 +97,7 @@ News
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-12">
-                                <h2><i class="fas fa-align-justify"></i>Latest News</h2>
+                                <h2><i class="fas fa-align-justify"></i>{% blocktranslate %}Latest News{% endblocktranslate %}</h2>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mn-img">
@@ -134,7 +135,7 @@ News
                     <div class="col-md-4">
                         <div class="sidebar">
                             <div class="sidebar-widget">
-                                <h2><i class="fas fa-align-justify"></i>Category</h2>
+                                <h2><i class="fas fa-align-justify"></i>{% blocktranslate %}Categories{% endblocktranslate %}</h2>
                                 <div class="category">
                                     <ul class="fa-ul">
                                         {% for cate in category_list %}
@@ -150,7 +151,7 @@ News
                             </div>
 
                             <div class="sidebar-widget">
-                                <h2><i class="fas fa-align-justify"></i>Tags</h2>
+                                <h2><i class="fas fa-align-justify"></i>{% blocktranslate %}Tags{% endblocktranslate %}</h2>
                                 <div class="tags">
                                 {% for tag in tag_list %}
                                     <a href={% url "tag" tag.id %}>{{tag}}</a>

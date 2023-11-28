@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-24 02:25+0500\n"
+"POT-Creation-Date: 2023-11-28 21:51+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,15 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: conf/settings.py:129
+#: conf/settings.py:134
 msgid "Uzbek"
 msgstr ""
 
-#: conf/settings.py:130
+#: conf/settings.py:135
 msgid "English"
 msgstr ""
 
-#: conf/settings.py:131
+#: conf/settings.py:136
 msgid "Russian"
 msgstr ""
 
@@ -608,6 +608,7 @@ msgid "Order"
 msgstr ""
 
 #: env/lib/python3.10/site-packages/django/forms/formsets.py:499
+#: templates/detail.html:37
 msgid "Delete"
 msgstr ""
 
@@ -1239,6 +1240,14 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
+#: env/lib/python3.10/site-packages/etc/admin/models.py:38
+msgid "Custom page"
+msgstr ""
+
+#: env/lib/python3.10/site-packages/etc/admin/models.py:79
+msgid "Done."
+msgstr ""
+
 #: env/lib/python3.10/site-packages/modeltranslation/widgets.py:24
 msgid "None"
 msgstr ""
@@ -1263,11 +1272,22 @@ msgstr ""
 msgid "Translations"
 msgstr ""
 
-#: templates/base.html:79
+#: templates/add_new.html:3
+#, fuzzy
+#| msgid "Add News"
+msgid "Add New"
+msgstr "Добавить новость"
+
+#: templates/add_new.html:11 templates/registration/password_reset_form.html:11
+msgid "Submit"
+msgstr "Подтверждать"
+
+#: templates/base.html:79 templates/index.html:137
 msgid "Categories"
 msgstr "Категории"
 
-#: templates/base.html:95
+#: templates/base.html:95 templates/registration/password_change_form.html:3
+#: templates/registration/profile.html:18
 msgid "Change Password"
 msgstr "Изменить пароль"
 
@@ -1295,7 +1315,7 @@ msgstr "Авторизоваться"
 msgid "Sign up"
 msgstr "Зарегистрироваться"
 
-#: templates/base.html:157
+#: templates/base.html:157 templates/index.html:153
 msgid "Tags"
 msgstr "Теги"
 
@@ -1310,3 +1330,98 @@ msgstr "Связаться"
 #: templates/base.html:188
 msgid "109 Amir Temur, Yunusobod district, Tashkent, UZB"
 msgstr "ул. Амира Темура, 109, Юнусабадский район, г. Ташкент, Узбекистан"
+
+#: templates/detail.html:36 templates/registration/profile.html:16
+msgid "Update"
+msgstr "Обновлять"
+
+#: templates/index.html:5
+#, fuzzy
+#| msgid "My News"
+msgid "News"
+msgstr "Новости"
+
+#: templates/index.html:99
+msgid "Latest News"
+msgstr "Последние новости"
+
+#: templates/registration/login.html:3
+#: templates/registration/password_reset_complete.html:10
+#, fuzzy
+#| msgid "Sign in"
+msgid "Sign In"
+msgstr "Авторизоваться"
+
+#: templates/registration/login.html:10
+msgid "Login"
+msgstr "Авторизоваться"
+
+#: templates/registration/login.html:14
+#, fuzzy
+#| msgid "Change Password"
+msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: templates/registration/password_change_done.html:3
+#: templates/registration/password_reset_done.html:3
+#, fuzzy
+#| msgid "Change Password"
+msgid "Change Password Done"
+msgstr "Изменить пароль"
+
+#: templates/registration/password_change_done.html:8
+msgid "Password changed successfully"
+msgstr "Пароль успешно изменен"
+
+#: templates/registration/password_change_form.html:11
+#: templates/registration/password_reset_confirm.html:11
+msgid "Save"
+msgstr "Сохранять"
+
+#: templates/registration/password_reset_complete.html:3
+#, fuzzy
+#| msgid "Change Password"
+msgid "Change Password Completed"
+msgstr "Изменение пароля завершено"
+
+#: templates/registration/password_reset_complete.html:8
+msgid "Password successfully changed"
+msgstr "Пароль успешно изменен"
+
+#: templates/registration/password_reset_confirm.html:3
+#, fuzzy
+#| msgid "Change Password"
+msgid "Set new Password"
+msgstr "Изменить пароль"
+
+#: templates/registration/password_reset_done.html:8
+msgid "We sent you email for reset password"
+msgstr "Мы отправили вам электронное письмо для сброса пароля"
+
+#: templates/registration/password_reset_form.html:3
+#, fuzzy
+#| msgid "Change Password"
+msgid "Reset Password"
+msgstr "Сброс пароля"
+
+#: templates/registration/profile.html:3
+#, fuzzy
+#| msgid "Profile"
+msgid "Profile:"
+msgstr "Профиль:"
+
+#: templates/registration/profile.html:8
+msgid "Username:"
+msgstr "Имя пользователя:"
+
+#: templates/registration/profile.html:10
+msgid "Email:"
+msgstr "Электронная почта:"
+
+#: templates/registration/profile.html:12
+msgid "First Name:"
+msgstr "Имя:"
+
+#: templates/registration/profile.html:14
+msgid "Last Name:"
+msgstr "Фамилия:"
